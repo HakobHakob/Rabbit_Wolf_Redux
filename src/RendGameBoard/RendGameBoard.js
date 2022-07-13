@@ -5,7 +5,6 @@ import { RendGameBoardDiv } from './RendGameBoardStyle'
 const GameBoard = ({ array }) => {
   
   return (
-    
     <RendGameBoardDiv>
       {array.map((row, i) => (
         <div key={i}>

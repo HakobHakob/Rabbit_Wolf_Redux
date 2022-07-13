@@ -1,4 +1,6 @@
-import styled from 'styled-components'
+import styled from "styled-components"
+
+
 
 export const RendGameBoardDiv = styled.div`
   background-color: #f197ff;

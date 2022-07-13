@@ -3,7 +3,7 @@ import { AppStyles } from './AppStyle'
 import { GameArea } from '../GameAreaFolder/GameArea'
 import { useDispatch, useSelector } from 'react-redux'
 import { CreateNewBoard } from '../CreateNewBoard/NewGameBoardBtn'
-import { BoardNumber } from './BoardNumber'
+// import { BoardNumber } from './BoardNumber'
 
 const BOARD_NUMBER = 'BOARD_NUMBER'
 

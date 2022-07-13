@@ -2,7 +2,7 @@ const GAME_GRID = 'GAME_GRID'
 const GAME_STATUS = 'GAME_STATUS'
 const GAME_RESULT = 'GAME_RESULT'
 
-export const GameStateReducer = (state = {}, action) => {
+export const gameStateReducer = (state = {}, action) => {
   if (action.type === GAME_GRID) {
     return {
       gameGrid: action.payload.gameGrid,

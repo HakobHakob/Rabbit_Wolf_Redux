@@ -1,7 +1,7 @@
 import { combineReducers, createStore } from 'redux'
 import { appReducer, initialBoardNumber } from '../App/AppReducer'
 import {
-  GameStateReducer,
+  gameStateReducer,
   initialGameState,
 } from '../GameAreaFolder/GameMatrixReducer'
 import {
@@ -12,7 +12,7 @@ import {
 const store = createStore(
   combineReducers({
     gameSelect: gameSelectReducer,
-    gameState: GameStateReducer,
+    gameState: gameStateReducer,
     boardNumber: appReducer,
   }),
   {
