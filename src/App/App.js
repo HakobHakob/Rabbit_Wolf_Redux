@@ -1,23 +1,43 @@
 import React from 'react'
-import { useState } from 'react'
 import { AppStyles } from './AppStyle'
 import { GameArea } from '../GameAreaFolder/GameArea'
+import { useDispatch, useSelector } from 'react-redux'
 import { CreateNewBoard } from '../CreateNewBoard/NewGameBoardBtn'
-import { useSelector } from 'react-redux'
+import { BoardNumber } from './BoardNumber'
+
+const BOARD_NUMBER = 'BOARD_NUMBER'
+
+
+
 
 function App() {
-  const [gameBoardNumber, setGameBoardNumber] = useState([])
 
-  function addGameBoardnumber() {
-    setGameBoardNumber([...gameBoardNumber, gameBoardNumber.length + 1])
-  }
+  const boardNumber = useSelector(state =>{
+    return state.boardNumber.gameBoardNumber
+  })
+
+  const dispatch = useDispatch()
+ 
 
   return (
     <AppStyles>
-      <CreateNewBoard onClick={addGameBoardnumber} />
-      {gameBoardNumber.map((item) => {
+      
+      <CreateNewBoard  onClick={()=>{
+        console.log(boardNumber)
+        dispatch({
+          type:BOARD_NUMBER,
+          payload:{
+            gameBoardNumber:boardNumber.length + 1
+          }
+        })
+      }} />
+      <GameArea/>
+     
+
+      {/* <BoardNumber boardNumber={boardNumber}/> */}
+      {/* {boardNumber.map((item) => {
         return <GameArea key={item} />
-      })}
+      })} */}
     </AppStyles>
   )
 }

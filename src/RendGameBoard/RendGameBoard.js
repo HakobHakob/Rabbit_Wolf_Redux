@@ -3,6 +3,7 @@ import { Square } from '../Square/Square'
 import { RendGameBoardDiv } from './RendGameBoardStyle'
 
 const GameBoard = ({ array }) => {
+  
   return (
     
     <RendGameBoardDiv>
