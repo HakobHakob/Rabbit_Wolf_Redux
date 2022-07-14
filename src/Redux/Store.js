@@ -3,7 +3,7 @@ import { appReducer, initialBoardNumber } from '../App/AppReducer'
 import {
   gameStateReducer,
   initialGameState,
-} from '../GameAreaFolder/GameMatrixReducer'
+} from '../GameAreaFolder/GameStateReducer'
 import {
   gameSelectReducer,
   initialSelectValue,
