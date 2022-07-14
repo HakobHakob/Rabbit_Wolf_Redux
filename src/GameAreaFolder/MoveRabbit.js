@@ -1,3 +1,5 @@
+
+
 const characterDatas = {
   rabbit: { name: 'r', count: 1 },
   wolf: { name: 'w' },
@@ -10,6 +12,8 @@ const WOLF = characterDatas.wolf.name
 const HOME = characterDatas.home.name
 const FENCE = characterDatas.fence.name
 const FREE_CELL = 0
+
+
 
 function findCordOfCharacter(gamePlaceArr, character) {
   const findInGameplace = function(accumulator, row, x) {
@@ -62,7 +66,7 @@ function setRabbitInNewCoordinates(
       return gameStatObject
 
     case HOME:
-      gamePlaceArr[x][y] = FREE_CELL
+      gamePlaceArr[x][y] = FREE_CELL      
       gameStatObject.gameResult = 'You win!'
       gameStatObject.isGameOver = true
       return gameStatObject
@@ -88,7 +92,7 @@ function setRabbitInNewCell(gameStatObject, arrow) {
 
   const rabbitInNewCoordinates = setRabbitInNewCoordinates(gameStatObject,rabbitNewCoordinates,rabbitCord,arrow)
 
-console.log(rabbitInNewCoordinates,'gggg')
+
 
   return rabbitInNewCoordinates
 }

@@ -19,7 +19,10 @@ const store = createStore(
     gameSelect: initialSelectValue,
     gameState: initialGameState,
     boardNumber: initialBoardNumber,
-  }
+  },
+  window.__REDUX_DEVTOOLS_EXTENSION__
+    ? window.__REDUX_DEVTOOLS_EXTENSION__()
+    : undefined
 )
 
 export { store }
