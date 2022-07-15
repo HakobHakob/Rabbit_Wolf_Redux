@@ -1,29 +1,38 @@
-const GAME_STATE = 'GAME_STATE'
-// const GAME_STATUS = 'GAME_STATUS'
-// const GAME_RESULT = 'GAME_RESULT'
+const GAME_STATE_START = 'GAME_STATE_START'
+const GAME_STATE_MATRIX = 'GAME_STATE_MATRIX'
+const GAME_STATUS = 'GAME_STATUS'
+const GAME_RESULT = 'GAME_RESULT'
 
 export const gameStateReducer = (state = {}, action) => {
-  if (action.type === GAME_STATE) {
-    return {
-      ...state,
-      gameGrid: action.payload.gameGrid,
-      isGameOver: action.payload.isGameOver,
-      gameResult: action.payload.gameResult,     
-      
-    }
-  // } else if (action.type === GAME_STATUS) {
-  //   return {
-  //     ...state,
-  //     isGameOver: action.payload.isGameOver,
-  //   }
-  // } else if (action.type === GAME_RESULT) {
-  //   return {
-  //     ...state,
-  //     gameResult: action.payload.gameResult,
-  //   }
-  } 
-  // else 
-  return state
+  switch (action.type) {
+    case GAME_STATE_START:
+      return {
+        ...state,
+        gameGrid: action.payload.gameGrid,
+        isGameOver: action.payload.isGameOver,
+        gameResult: action.payload.gameResult,
+      }
+
+    case GAME_STATE_MATRIX:
+      return {
+        ...state,
+        gameGrid: action.payload.gameGrid,
+      }
+
+    case GAME_STATUS:
+      return {
+        ...state,
+        isGameOver: action.payload.isGameOver,
+      }
+    case GAME_RESULT:
+      return {
+        ...state,
+        gameResult: action.payload.gameResult,
+      }
+
+    default:
+      return state
+  }
 }
 
 export const initialGameState = {
@@ -32,19 +41,9 @@ export const initialGameState = {
   gameResult: '',
 }
 
-export const gameMatrix = (state) => {
-  return state.gameState.gameGrid
-}
-export const gameStatus = (state) => {
-  return state.gameState.isGameOver
-}
-export const gameResult = (state) => {
-  return state.gameState.gameResult
-}
-
-export const setGameState = (setMatrix,setStatus,setResult) => {
+export const setGameStateStart = (setMatrix, setStatus, setResult) => {
   return {
-    type: GAME_STATE,
+    type: GAME_STATE_START,
     payload: {
       gameGrid: setMatrix,
       isGameOver: setStatus,
@@ -52,19 +51,27 @@ export const setGameState = (setMatrix,setStatus,setResult) => {
     },
   }
 }
-// export const setGameStatus = (setStatus) => {
-//   return {
-//     type: GAME_STATUS,
-//     payload: {
-//       isGameOver: setStatus,
-//     },
-//   }
-// }
-// export const setGameResult = (setResult) => {
-//   return {
-//     type: GAME_RESULT,
-//     payload: {
-//       gameResult: setResult,
-//     },
-//   }
-// }
+export const setGameStateMatrix = (setNewMatrix) => {
+  return {
+    type: GAME_STATE_MATRIX,
+    payload: {
+      gameGrid: setNewMatrix,
+    },
+  }
+}
+export const setGameStatus = (setNewStatus) => {
+  return {
+    type: GAME_STATUS,
+    payload: {
+      isGameOver: setNewStatus,
+    },
+  }
+}
+export const setGameResult = (setNewResult) => {
+  return {
+    type: GAME_RESULT,
+    payload: {
+      gameResult: setNewResult,
+    },
+  }
+}

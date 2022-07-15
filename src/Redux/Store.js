@@ -1,5 +1,5 @@
 import { combineReducers, createStore } from 'redux'
-import { appReducer, initialBoardNumber } from '../App/AppReducer'
+import { boardNumberReducer, initialBoardNumber } from '../App/BoardNumberReducer'
 import {
   gameStateReducer,
   initialGameState,
@@ -9,11 +9,12 @@ import {
   initialSelectValue,
 } from '../GameSelect/GameSelectReducer'
 
-const store = createStore(
+
+ const store = createStore(
   combineReducers({
     gameSelect: gameSelectReducer,
     gameState: gameStateReducer,
-    boardNumber: appReducer,
+    boardNumber: boardNumberReducer,
   }),
   {
     gameSelect: initialSelectValue,
@@ -23,6 +24,14 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__
     ? window.__REDUX_DEVTOOLS_EXTENSION__()
     : undefined
-)
 
-export { store }
+
+)
+export {store}
+
+
+
+
+
+
+

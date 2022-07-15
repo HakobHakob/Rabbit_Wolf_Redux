@@ -1,25 +1,31 @@
+const GAME_BOARD_SIZE = 'GAME_BOARD_SIZE'
+
 export const gameSelectReducer = (state={}, action) => {
   
+  switch (action.type) {
+    case GAME_BOARD_SIZE:
+      return { 
+        boardSize: action.payload.boardSize
+      }
   
-  if (action.type === 'gameBoardSize') {
-    return { 
-      boardSize: action.payload.boardSize
-    }
+
+  
+    default:
+      return state
+  
   }
-  return state
 }
+
 
 export const initialSelectValue = {
   boardSize: 5,
 }
 
-export const selectValue = (state) => {
-  return state.gameSelect.boardSize
-}
+
 
 export const editValue = (newValue) => {
   return {
-    type: 'gameBoardSize',
+    type: GAME_BOARD_SIZE,
     payload: {
       boardSize: newValue,
     }

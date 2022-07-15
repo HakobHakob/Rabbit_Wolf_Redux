@@ -11,14 +11,21 @@ import { MoveCharacters } from './MoveCharacters'
 import { ShowMessage } from '../ShowMessage/ShowMessage'
 import { RendGameBoardDiv } from '../RendGameBoard/RendGameBoardStyle'
 
+
+
+
 const options = [
   { value: 5, label: '5 x 5' },
   { value: 7, label: '7 x 7' },
   { value: 10, label: '10 x 10' },
 ]
 const directions = [0, 1, 2, 3]
-// const GAME_STATE = 'GAME_STATE'
-const GAME_STATE = 'GAME_STATE'
+const GAME_STATE_START = 'GAME_STATE_START'
+const GAME_STATE_MATRIX = 'GAME_STATE_MATRIX'
+const GAME_STATUS = 'GAME_STATUS'
+const GAME_RESULT = 'GAME_RESULT'
+const GAME_BOARD_SIZE = 'GAME_BOARD_SIZE'
+
 
 const GameArea = () => {
   const gameBordSize = useSelector((state) => {
@@ -43,7 +50,7 @@ const GameArea = () => {
 
   const dispatch = useDispatch()
 
-  const isGameInProcess = gameStatus === false && gameMatrix.length > 0
+  
 
   const setRabbitDirections = (gameStateObject, directions) => {
     if (gameStatus === true) {
@@ -52,14 +59,25 @@ const GameArea = () => {
     const gameState = MoveCharacters({ ...gameStateObject }, directions)
 
     dispatch({
-      type: GAME_STATE,
+      type: GAME_STATE_MATRIX,
       payload: {
         gameGrid: gameState.gameGrid,
+      },
+    })
+    dispatch({
+      type: GAME_STATUS,
+      payload: {
         isGameOver: gameState.isGameOver,
+      },
+    })
+    dispatch({
+      type: GAME_RESULT,
+      payload: {
         gameResult: gameState.gameResult,
       },
     })
   }
+  const isGameInProcess = gameStatus === false && gameMatrix.length > 0
 
   return (
     <>
@@ -68,7 +86,7 @@ const GameArea = () => {
           <StartBtnStyle
             onClick={() => {
               dispatch({
-                type: GAME_STATE,
+                type: GAME_STATE_START,
                 payload: {
                   gameGrid: CreateGameArray(gameBordSize),
                   isGameOver: false,
@@ -99,7 +117,7 @@ const GameArea = () => {
             options={options}
             onChange={(e) => {
               dispatch({
-                type: 'gameBoardSize',
+                type: GAME_BOARD_SIZE,
                 payload: {
                   boardSize: parseInt(e.target.value),
                 },
