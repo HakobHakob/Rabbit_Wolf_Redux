@@ -3,6 +3,8 @@ const GAME_STATE_MATRIX = 'GAME_STATE_MATRIX'
 const GAME_STATUS = 'GAME_STATUS'
 const GAME_RESULT = 'GAME_RESULT'
 
+
+
 export const gameStateReducer = (state = {}, action) => {
   switch (action.type) {
     case GAME_STATE_START:
@@ -10,7 +12,7 @@ export const gameStateReducer = (state = {}, action) => {
         ...state,
         gameGrid: action.payload.gameGrid,
         isGameOver: action.payload.isGameOver,
-        gameResult: action.payload.gameResult,
+        gameResult: action.payload.gameResult,       
       }
 
     case GAME_STATE_MATRIX:
