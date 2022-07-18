@@ -26,7 +26,7 @@ const GameArea = ({ gameState, boardNumber }) => {
 
   const dispatch = useDispatch()
 
-  const setRabbitDirections = (directions) => {
+   const setRabbitDirections = (directions) => {
     if (gameStatus === true) {
       return
     }
