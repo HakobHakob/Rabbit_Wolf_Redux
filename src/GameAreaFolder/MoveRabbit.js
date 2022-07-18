@@ -1,17 +1,17 @@
+import { RABBIT, WOLF, HOME,FENCE,FREE_CELL} from '../Constants'
 
+// const characterDatas = {
+//   rabbit: { name: 'r', count: 1 },
+//   wolf: { name: 'w' },
+//   home: { name: 'h', count: 1 },
+//   fence: { name: 'f' },
+// }
 
-const characterDatas = {
-  rabbit: { name: 'r', count: 1 },
-  wolf: { name: 'w' },
-  home: { name: 'h', count: 1 },
-  fence: { name: 'f' },
-}
-
-const RABBIT = characterDatas.rabbit.name
-const WOLF = characterDatas.wolf.name
-const HOME = characterDatas.home.name
-const FENCE = characterDatas.fence.name
-const FREE_CELL = 0
+// const RABBIT = characterDatas.rabbit.name
+// const WOLF = characterDatas.wolf.name
+// const HOME = characterDatas.home.name
+// const FENCE = characterDatas.fence.name
+// const FREE_CELL = 0
 
 
 

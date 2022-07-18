@@ -1,75 +1,56 @@
 import React from 'react'
 import { CustomSelect } from '../GameSelect/CustomSelect'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { StartBtnStyle } from '../StartBtnFolder/StartBtnStyle'
 import { GameBoard } from '../RendGameBoard/RendGameBoard'
-import { CreateGameArray } from './CreateEmptyMass'
 import { OptionsDivStyle } from './OptionsDivStyle'
 import { ButtonsDiv } from './ButtonsDiv'
 import { ArrowButtons } from '../ArrowButtons/ArrowButtons'
 import { MoveCharacters } from './MoveCharacters'
 import { ShowMessage } from '../ShowMessage/ShowMessage'
 import { RendGameBoardDiv } from '../RendGameBoard/RendGameBoardStyle'
+import {
+  SET_GAME_START,
+  SET_GAME_MATRIX,
+  CHANGE_GAME_STATUS,
+  SHOW_GAME_RESULT,
+  SET_GAME_BOARD_SIZE,
+  options,
+  directions,
+} from '../Constants'
 
-
-
-const options = [
-  { value: 5, label: '5 x 5' },
-  { value: 7, label: '7 x 7' },
-  { value: 10, label: '10 x 10' },
-]
-const directions = [0, 1, 2, 3]
-const GAME_STATE_START = 'GAME_STATE_START'
-const GAME_STATE_MATRIX = 'GAME_STATE_MATRIX'
-const GAME_STATUS = 'GAME_STATUS'
-const GAME_RESULT = 'GAME_RESULT'
-const GAME_BOARD_SIZE = 'GAME_BOARD_SIZE'
-
-const GameArea = () => {
-  const gameBordSize = useSelector((state) => {
-    return state.gameSelect.boardSize
-  })
-
-  const gameStateObject = useSelector((state) => {
-    return state.gameState
-  })
-
-  const gameMatrix = useSelector((state) => {
-    return state.gameState.gameGrid
-  })
-
-  const gameStatus = useSelector((state) => {
-    return state.gameState.isGameOver
-  })
-
-  const gameResult = useSelector((state) => {
-    return state.gameState.gameResult
-  })
+const GameArea = ({ gameState, boardNumber }) => {
+  const gameMatrix = gameState.gameGrid
+  const gameStatus = gameState.isGameOver
+  const gameResult = gameState.gameResult
 
   const dispatch = useDispatch()
 
-  const setRabbitDirections = (gameStateObject, directions) => {
+  const setRabbitDirections = (directions) => {
     if (gameStatus === true) {
       return
     }
-    const gameState = MoveCharacters({ ...gameStateObject }, directions)
+    const newGameState = MoveCharacters({ ...gameState }, directions)
 
     dispatch({
-      type: GAME_STATE_MATRIX,
+      type: SET_GAME_MATRIX,
       payload: {
-        gameGrid: gameState.gameGrid,
+        gameGrid: newGameState.gameGrid,
+        boardNumber,
       },
     })
     dispatch({
-      type: GAME_STATUS,
+      type: CHANGE_GAME_STATUS,
       payload: {
-        isGameOver: gameState.isGameOver,
+        isGameOver: newGameState.isGameOver,
+        boardNumber,
       },
     })
     dispatch({
-      type: GAME_RESULT,
+      type: SHOW_GAME_RESULT,
       payload: {
-        gameResult: gameState.gameResult,
+        gameResult: newGameState.gameResult,
+        boardNumber,
       },
     })
   }
@@ -77,64 +58,54 @@ const GameArea = () => {
 
   return (
     <>
-      {/* <Context.Provider
-        value={{
-         
-        }}
-      > */}
-        <RendGameBoardDiv>
-          <OptionsDivStyle>
-            <StartBtnStyle
-              onClick={() => {
-              
-                dispatch({
-                  type: GAME_STATE_START,
-                  payload: {
-                    gameGrid: CreateGameArray(gameBordSize),
-                    isGameOver: false,
-                    gameResult: '',
-                  },
-                })
-              }}
-            >
-              Start
-            </StartBtnStyle>
+      <RendGameBoardDiv>
+        <OptionsDivStyle>
+          <StartBtnStyle
+            onClick={() => {
+              dispatch({
+                type: SET_GAME_START,
+                payload: {
+                  boardNumber,
+                },
+              })
+            }}
+          >
+            Start
+          </StartBtnStyle>
 
-            {isGameInProcess ? (
-              <ButtonsDiv>
-                {directions.map((direction, index) => {
-                  return (
-                    <ArrowButtons
-                      key={index}
-                      direction={direction}
-                      onClick={() =>
-                        setRabbitDirections(gameStateObject, direction)
-                      }
-                    />
-                  )
-                })}
-              </ButtonsDiv>
-            ) : null}
-            <CustomSelect
-              options={options}
-              onChange={(e) => {
-                dispatch({
-                  type: GAME_BOARD_SIZE,
-                  payload: {
-                    boardSize: parseInt(e.target.value),
-                  },
-                })
-              }}
-            ></CustomSelect>
-          </OptionsDivStyle>
+          {isGameInProcess ? (
+            <ButtonsDiv>
+              {directions.map((direction, index) => {
+                return (
+                  <ArrowButtons
+                    key={index}
+                    direction={direction}
+                    onClick={() => setRabbitDirections(direction)}
+                  />
+                )
+              })}
+            </ButtonsDiv>
+          ) : null}
+          <CustomSelect
+            options={options}
+            onChange={(e) => {
+              dispatch({
+                type: SET_GAME_BOARD_SIZE,
+                payload: {
+                  boardSize: parseInt(e.target.value),
+                  boardNumber,
+                },
+              })
+            }}
+          ></CustomSelect>
+        </OptionsDivStyle>
 
-          {gameStatus === true ? (
-            <ShowMessage message={gameResult} />
-          ) : (
-            <div>{<GameBoard array={gameMatrix} />}</div>
-          )}
-        </RendGameBoardDiv>
-      {/* </Context.Provider> */}
+        {gameStatus === true ? (
+          <ShowMessage message={gameResult} />
+        ) : (
+          <div>{<GameBoard array={gameMatrix} />}</div>
+        )}
+      </RendGameBoardDiv>
     </>
   )
 }

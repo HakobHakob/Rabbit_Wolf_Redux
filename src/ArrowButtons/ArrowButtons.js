@@ -3,6 +3,9 @@ import { DirectionButtons } from './DirectionButtons'
 import { ArrowsDivStyle } from './ArrowButtonsStyle'
 
 const ArrowButtons = ({ onClick,direction }) => {
+
+ 
+
   return (
     <ArrowsDivStyle>
       <DirectionButtons
